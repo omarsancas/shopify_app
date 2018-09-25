@@ -1,19 +1,19 @@
 ShopifyApp.configure do |config|
-  config.application_name = Rails.application.credentials.shopify_app[:name]
-  config.api_key = Rails.application.credentials.shopify_app[:api_key]
-  config.secret = Rails.application.credentials.shopify_app[:secret]
-  config.scope = Rails.application.credentials.shopify_app[:scopes].join(",")
+  config.application_name = "MobintumOnDemandVol2"
+  config.api_key = "58836700a3cb2433197e13904bafb3de"
+  config.secret = "ffd0aafdb36c7f26e36b03d0a319ce33"
+  config.scope = 'read_customers, read_orders, write_products'
 
   config.session_repository = Shop
   config.embedded_app = true
   config.after_authenticate_job = false
-
-  topics = Rails.application.credentials.shopify_app[:webhook_topics]
+  host = "http://f7206db4.ngrok.io"
+  topics = ['orders/update', 'orders/create']
   config.webhooks = topics.each_with_object([]) do |topic, acc|
     acc << {
       topic: topic,
       format: "json",
-      address: "#{Rails.application.credentials[Rails.env.to_sym][:host]}/webhooks/#{topic.parameterize(separator: '_')}"
+      address: "#{host}/webhooks/#{topic.parameterize(separator: '_')}"
     }
   end
 end

@@ -12,9 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2017_07_18_125423) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "shops", force: :cascade do |t|
     t.string "shopify_domain", null: false
     t.string "shopify_token", null: false
